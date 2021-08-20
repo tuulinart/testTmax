@@ -7,20 +7,27 @@ const Book = connection.define("Books", {
         type: Sequelize.STRING,
         allowNull: false
     },
-    upload: {
+    img: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    description: {
+        type: Sequelize.TEXT,
+        allowNull: true
+    },
+    author: {
         type: Sequelize.STRING,
         allowNull: false
     },
-
-
-    slug: {
+    key: {
         type: Sequelize.STRING,
-        allowNull: false
-    },
-
-
+        allowNull: true,
+    }
 
 
 })
+
+//Book.sync({force: true});
+
 
 module.exports = Book;

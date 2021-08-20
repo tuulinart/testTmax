@@ -16,4 +16,7 @@ const Reserve = connection.define("reserves", {
 Reserve.belongsTo(Book);
 Reserve.belongsTo(User);
 
+
+//Reserve.sync({force: true});
+
 module.exports = Reserve;

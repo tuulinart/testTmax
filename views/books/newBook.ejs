@@ -1,0 +1,27 @@
+<%- include('../../partials/header.ejs') %>
+
+<body>
+    <%- include('../../partials/navbar.ejs') %>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <font face="Courier"> <h4>Cadastro de livro</h4> </font>
+            </div>
+            <div class="card-body">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <input class="form-control" type="text" name="title" id="" placeholder="Qual o titúlo deste livro">
+                    <br>
+                    <input class="form-control" type="text" name="author" id="" placeholder="Quem escreveu este livro">
+                    <br>
+                    <input type="file" name="file">
+                    <br>
+                    <br>
+                    <button class="btn btn-primary" type="submit">Postar</button> 
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<%- include('../../partials/footer.ejs') %>
