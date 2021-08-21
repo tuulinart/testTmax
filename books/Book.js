@@ -22,12 +22,16 @@ const Book = connection.define("Books", {
     key: {
         type: Sequelize.STRING,
         allowNull: true,
+    },
+    permission: {
+        type: Sequelize.STRING,
+        allowNull: false,
     }
 
 
 })
 
-//Book.sync({force: true});
+//Book.sync({ force: true });
 
 
 module.exports = Book;

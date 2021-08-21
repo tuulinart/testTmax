@@ -17,6 +17,6 @@ Reserve.belongsTo(Book);
 Reserve.belongsTo(User);
 
 
-//Reserve.sync({force: true});
+//Reserve.sync({ force: true });
 
 module.exports = Reserve;

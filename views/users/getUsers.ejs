@@ -1,0 +1,49 @@
+<%- include('../../partials/header.ejs') %>
+
+    <body>
+        <%- include('../../partials/navbar.ejs') %>
+            <div class="container">
+                <hr>
+                <h2>Usúarios</h2>
+                <a class="btn btn-primary" href="/users/new">Criar novo usúario</a>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user=> { %>
+                            <tr>
+                                <th>
+                                    <%= user.id %>
+                                </th>
+                                <th>
+                                    <%= user.name %>
+                                </th>
+                                <th>
+                                    <%= user.email %>
+                                </th>
+                                <th>
+                                    <a href="/users/edit/<%= users.id %>" class="btn btn-warning">Editar</a>
+
+                                    <form method="POST" action="/users/delete" style="display: inline;"
+                                        onsubmit="confirmarDelecao(event, this)">
+                                        <input type="hidden" name="id" value="<%= user.id %>">
+                                        <button class="btn btn-danger">Deletar</button>
+                                    </form>
+
+                                </th>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </div>
+    </body>
+
+
+    <%- include('../../partials/footer.ejs') %>

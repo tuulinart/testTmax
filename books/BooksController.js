@@ -7,8 +7,8 @@ const Book = require("./Book");
 
 
 router.get("/books", (req, res) => {
-    Book.findAll().then(books =>{
-    res.render("index", {books: books})
+    Book.findAll().then(books => {
+        res.render("index", { books: books })
     });
 })
 
@@ -17,26 +17,28 @@ router.get("/books/new", (req, res) => {
     res.render("books/newBook");
 })
 
-router.post("/upload", multer(multerConfig).single("file") , async (req,res) => {
-    
+router.post("/upload", multer(multerConfig).single("file"), async (req, res) => {
+
     var title = req.body.title;
-    if(title  != undefined) {
+    if (title != undefined) {
         Book.create({
             title: title,
             img: req.file.originalname,
             author: req.body.author,
-            key: req.file.filename,})
+            key: req.file.filename,
+            permission: req.body.permission,
+        })
             .then(() => {
-                res.redirect("/");
+                res.redirect("/books");
             })
-        
+
     } else {
         res.redirect("/books/new")
     }
-    
 
-    
-    
+
+
+
 })
 
 module.exports = router;

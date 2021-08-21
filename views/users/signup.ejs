@@ -4,22 +4,17 @@
         <%- include('../../partials/navbar.ejs') %>
 
             <div class="container">
-                <div class="card">
+                <div class="card mt-5">
                     <div class="card-header">
-                        <font face="Courier">
-                            <h4>Cadastro de livro</h4>
-                        </font>
+                        <h3>Cadastro</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/upload" method="POST" enctype="multipart/form-data">
-                            <input class="form-control" type="text" name="title" id=""
-                                placeholder="Qual o titúlo deste livro">
+                        <form action="/users/create" method="POST">
+                            <input class="form-control" type="text" name="name" placeholder="Nome">
                             <br>
-                            <input class="form-control" type="text" name="author" id=""
-                                placeholder="Quem escreveu este livro">
+                            <input class="form-control" type="email" name="email" placeholder="Email@email.com">
                             <br>
-                            <i>Para quem é destinado o livro?</i>
-                            <br>
+                            <input class="form-control" type="password" name="password" placeholder="********">
                             <br>
                             <div class="btn-group">
                                 <input class="btn-check" type="radio" name="permission" id="student" autocomplete="off"
@@ -34,14 +29,12 @@
                             </div>
                             <br>
                             <br>
-                            <input type="file" name="file">
-                            <br>
-                            <br>
-                            <button class="btn btn-primary" type="submit">Postar</button>
+                            <button type="submit" class="btn btn-primary col-12"> Cadastrar </button>
                         </form>
                     </div>
                 </div>
             </div>
 
     </body>
+
     <%- include('../../partials/footer.ejs') %>

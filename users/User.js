@@ -17,14 +17,13 @@ const User = connection.define("Users", {
         type: Sequelize.STRING,
         allowNull: false
     },
-
-    createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+    permission: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
 
 })
 
-//User.sync({force: true});
+//User.sync({ force: true });
 
 module.exports = User;
