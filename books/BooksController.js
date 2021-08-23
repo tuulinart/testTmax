@@ -57,7 +57,6 @@ router.post("/books/edit", multer(multerConfig).single("file"), (req, res) => {
 
 
 router.post("/books/delete", (req, res) => {
-    var id = req.body.id;
     if (id != undefined) {
 
         if (!isNaN(id)) {
@@ -115,6 +114,11 @@ router.get("/books/:id", bookAuth, (req, res) => {
             res.redirect("/books");
         }
     })
+})
+
+router.get("/dowload", (req, res) => {
+    var url = req.body.filename;
+    var fileStream = fs.createWriteStream(`${req.body.filename}`)
 })
 
 module.exports = router;
