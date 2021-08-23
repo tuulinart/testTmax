@@ -25,7 +25,6 @@ router.get("/login", (req, res) => {
 
 })
 
-
 router.post("/authenticate", (req, res) => {
 
     var email = req.body.email;
@@ -158,7 +157,7 @@ router.get("/user/:id", (req, res) => {
         where: { id: id }
     }).then(user => {
         if (user != undefined) {
-            res.render("users/userPage");
+            res.render("users/userPage", { user: user });
         } else {
             res.redirect("/login");
         }

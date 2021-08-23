@@ -2,7 +2,42 @@
 
     <body>
         <%- include('../../partials/navbarLogin.ejs') %>
-            <h1>teste</h1>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <font face="Courier">
+                            <h4>Edição de usúario</h4>
+                        </font>
+                    </div>
+                    <div class="card-body">
+                        <form action="/users/edit" method="POST">
+
+                            <input type="hidden" name="id" value="<%=user.id %>">
+
+                            <input class="form-control" type="text" name="name" id=""
+                                placeholder="Qual o titúlo deste livro" value="<%=user.name%>">
+                            <br>
+                            <input class="form-control" type="text" name="email" id=""
+                                placeholder="Quem escreveu este livro" value="<%=user.email%>">
+                            <br>
+                            <div class="btn-group">
+                                <input class="btn-check" type="radio" name="permission" id="student" autocomplete="off"
+                                    value="Estudante">
+                                <label class="btn btn-primary" for="student">Estudante</label>
+                                <input class="btn-check" type="radio" name="permission" id="teacher" autocomplete="off"
+                                    value="Professor">
+                                <label class="btn btn-primary" for="teacher">Professor</label>
+                                <input class="btn-check" type="radio" name="permission" id="director" autocomplete="off"
+                                    value="Diretor">
+                                <label class="btn btn-primary" for="director">Diretor</label>
+                            </div>
+                            <br>
+                            <br>
+                            <button class="btn btn-primary" type="submit">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </body>
 
 

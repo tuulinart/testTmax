@@ -1,0 +1,33 @@
+<%- include('../../partials/header.ejs') %>
+
+    <body>
+        <%- include('../../partials/navbar.ejs') %>
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <font face="Courier">
+                            <h4>Edição de livro</h4>
+                        </font>
+                    </div>
+                    <div class="card-body">
+                        <form action="/books/edit" method="POST" enctype="multipart/form-data">
+
+                            <input type="hidden" name="id" value="<%=reserve.id %>">
+
+                            <input class="form-control" type="text" name="title" id=""
+                                placeholder="Qual o titúlo deste livro" value="<%=reserve.title%>">
+                            <br>
+                            <input class="form-control" type="text" name="author" id=""
+                                placeholder="Quem escreveu este livro" value="<%=reserve.author%>">
+                            <br>
+                            <input class="form-control" type="text" name="description" id="" placeholder="Descrição"
+                                value="<%=reserve.description%>">
+                            <br>
+                            <button class="btn btn-primary" type="submit">Atualizar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+    </body>
+    <%- include('../../partials/footer.ejs') %>

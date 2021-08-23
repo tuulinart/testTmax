@@ -2,14 +2,10 @@ const Sequelize = require("sequelize");
 const connection = require("../database/connection");
 
 
-const Book = connection.define("Books", {
+const Book = connection.define("books", {
     title: {
         type: Sequelize.STRING,
         allowNull: false,
-    },
-    img: {
-        type: Sequelize.STRING,
-        allowNull: true,
     },
     description: {
         type: Sequelize.TEXT,
@@ -29,13 +25,13 @@ const Book = connection.define("Books", {
     },
     bookFile: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
     }
 
 
 })
 
-//Book.sync({ force: true });
+//Book.sync({ force: false });
 
 
 module.exports = Book;

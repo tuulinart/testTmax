@@ -4,9 +4,7 @@ const multer = require("multer");
 const multerConfig = require("../config/multer");
 const Book = require("./Book");
 const auth = require("../middlewares/auht");
-const bookAuth = require("../middlewares/bookPermission");
 const directorAuth = require("../middlewares/directorAuth");
-const fs = require("fs");
 
 
 router.get("/books", auth, (req, res) => {
@@ -36,11 +34,11 @@ router.get("/books/edit/:id", directorAuth, (req, res) => {
     })
 })
 
-router.post("/books/edit", multer(multerConfig).single("file"), (req, res) => {
+router.post("/books/edit", multer(multerConfig).single("bookFile"), (req, res) => {
     var id = req.body.id;
     Book.update({
         title: req.body.title,
-        img: req.file.filename,
+        bookFile: req.file.filename,
         author: req.body.author,
         description: req.body.description,
         permission: req.body.permission,
@@ -57,6 +55,7 @@ router.post("/books/edit", multer(multerConfig).single("file"), (req, res) => {
 
 
 router.post("/books/delete", (req, res) => {
+    var id = req.body.id;
     if (id != undefined) {
 
         if (!isNaN(id)) {
@@ -82,12 +81,12 @@ router.get("/books/new", auth, (req, res) => {
     res.render("books/newBook");
 })
 
-router.post("/upload", multer(multerConfig).single("file"), (req, res) => {
+router.post("/upload", multer(multerConfig).single("bookFile"), (req, res) => {
     var title = req.body.title;
     if (title != undefined) {
         Book.create({
             title: title,
-            img: req.file.originalname,
+            bookFile: req.file.originalname,
             author: req.body.author,
             key: req.file.filename,
             permission: req.body.permission,
@@ -101,24 +100,46 @@ router.post("/upload", multer(multerConfig).single("file"), (req, res) => {
         res.redirect("/books/new")
     }
 })
-
-router.get("/books/:id", bookAuth, (req, res) => {
+router.get("/books/:id", (req, res) => {
     var id = req.params.id;
-    var url = `../src/uploads/${req.body.file}`;
     Book.findOne({
         where: { id: id }
     }).then(book => {
-        if (book != undefined) {
-            res.render("books/bookPage", { book: book });
-        } else {
-            res.redirect("/books");
+        var permissionBook = book.permission;
+        var permissionUser = req.session.user.permission;
+        var userId = req.session.user.id;
+        switch (permissionUser) {
+            case "Diretor":
+                console.log(permissionUser)
+                console.log(permissionBook)
+                console.log(userId)
+                res.render("books/bookPage", { book: book, userId });
+                break;
+            case "Professor":
+                if (permissionBook === "Estudante") {
+                    res.render("books/bookPage", { book: book, userId });
+                    console.log(permissionUser)
+                    console.log(permissionBook)
+                    console.log(userId)
+                } else if (permissionBook === "Professor") {
+                    res.render("books/bookPage", { book: book, userId });
+                    console.log(permissionUser)
+                    console.log(permissionBook)
+                    console.log(userId)
+                } else {
+                    res.redirect("/books");
+                }
+                break;
+            case "Estudante":
+                if (permissionBook === permissionUser) {
+                    res.render("books/bookPage", { book: book, userId });
+                } else {
+                    res.redirect("/books");
+                }
+            default:
+                res.redirect("/books");
         }
     })
-})
-
-router.get("/dowload", (req, res) => {
-    var url = req.body.filename;
-    var fileStream = fs.createWriteStream(`${req.body.filename}`)
 })
 
 module.exports = router;

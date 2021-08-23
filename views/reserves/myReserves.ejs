@@ -10,28 +10,40 @@
                     <h4>Minhas reservas</h4>
                     <hr class="mt=3">
                     <div class="row">
-                        <% reserves.forEach(reserve=> { %>
+                        <% reserves.forEach(function(reserve) { %>
 
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex align-items-stretch"
                                 style="padding-bottom: 15px;">
                                 <div class="card text-center bg-light">
-                                    <img src="https://lojasaraiva.vteximg.com.br/arquivos/ids/12710209-200-200/1010071147.jpg?v=637154380982930000"
+                                    <img src="https://viverdeblog.com/wp-content/uploads/2017/04/como-escrever-um-livro-topo.png"
                                         alt="" class="card-img-top">
                                     <div class="card-header">
                                         <h6 class="card-title">
-                                            Teste
+                                            <%=reserve.title%>
                                         </h6>
                                     </div>
                                     <div class="card-body">
                                         <i>
-                                            Teste
+                                            <%=reserve.author%>
                                         </i>
                                         <br>
                                         <br>
                                         <small>
-                                            Teste
+                                            <%=reserve.description%>
                                         </small>
                                     </div>
+                                    <a href="/dowload">
+                                        <button class="btn btn-primary btn-lg" type="button">Baixar</button>
+                                    </a>
+                                    <br>
+                                    <a href="/reserves/edit/<%= reserve.id %>">
+                                        <button class="btn btn-warning btn-lg" type="button">Editar</button>
+                                    </a>
+                                    <br>
+                                    <form action="/reserves/delete" method="POST" onsubmit="confirmDelete(event, this)">
+                                        <input type="hidden" name="id" value="<%= reserve.id %>">
+                                        <button class="btn btn-danger btn-lg" type="submit">Excluir</button>
+                                    </form>
                                 </div>
                             </div>
                             <% }) %>
@@ -45,5 +57,16 @@
 
     </body>
 
-
     <%- include('../../partials/footer.ejs') %>
+
+        <script>
+            function confirmDelete(event, form) {
+                event.preventDefault();
+                var decision = confirm("Você quer deleter este livro?");
+                if (decision) {
+                    form.submit();
+                } else {
+                    console.log("Ops, foi um erro!")
+                }
+            }
+        </script>
