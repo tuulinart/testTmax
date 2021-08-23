@@ -1,0 +1,49 @@
+<%- include('../../partials/header.ejs') %>
+
+
+    <body style="min-width:372px;">
+        <%- include('../../partials/navbar.ejs') %>
+
+            <main>
+
+                <div class="container">
+                    <h4>Minhas reservas</h4>
+                    <hr class="mt=3">
+                    <div class="row">
+                        <% reserves.forEach(reserve=> { %>
+
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex align-items-stretch"
+                                style="padding-bottom: 15px;">
+                                <div class="card text-center bg-light">
+                                    <img src="https://lojasaraiva.vteximg.com.br/arquivos/ids/12710209-200-200/1010071147.jpg?v=637154380982930000"
+                                        alt="" class="card-img-top">
+                                    <div class="card-header">
+                                        <h6 class="card-title">
+                                            Teste
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <i>
+                                            Teste
+                                        </i>
+                                        <br>
+                                        <br>
+                                        <small>
+                                            Teste
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+                </div>
+                </div>
+
+            </main>
+
+
+    </body>
+
+
+    <%- include('../../partials/footer.ejs') %>

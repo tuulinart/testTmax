@@ -1,20 +1,24 @@
 <%- include('../../partials/header.ejs') %>
 
     <body>
-        <%- include('../../partials/navbarLogin.ejs') %>
-
+        <%- include('../../partials/navbar.ejs') %>
             <div class="container">
-                <div class="card mt-5">
+                <div class="card">
                     <div class="card-header">
-                        <h3>Cadastro</h3>
+                        <font face="Courier">
+                            <h4>Edição de usúario</h4>
+                        </font>
                     </div>
                     <div class="card-body">
-                        <form action="/users/create" method="POST">
-                            <input class="form-control" type="text" name="name" placeholder="Nome">
+                        <form action="/users/edit" method="POST">
+
+                            <input type="hidden" name="id" value="<%=user.id %>">
+
+                            <input class="form-control" type="text" name="name" id=""
+                                placeholder="Qual o titúlo deste livro" value="<%=user.name%>">
                             <br>
-                            <input class="form-control" type="email" name="email" placeholder="Email@email.com">
-                            <br>
-                            <input class="form-control" type="password" name="password" placeholder="********">
+                            <input class="form-control" type="text" name="email" id=""
+                                placeholder="Quem escreveu este livro" value="<%=user.email%>">
                             <br>
                             <div class="btn-group">
                                 <input class="btn-check" type="radio" name="permission" id="student" autocomplete="off"
@@ -29,12 +33,11 @@
                             </div>
                             <br>
                             <br>
-                            <button type="submit" class="btn btn-primary col-12"> Cadastrar </button>
+                            <button class="btn btn-primary" type="submit">Atualizar</button>
                         </form>
                     </div>
                 </div>
             </div>
 
     </body>
-
     <%- include('../../partials/footer.ejs') %>

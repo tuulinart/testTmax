@@ -5,19 +5,19 @@ const connection = require("../database/connection");
 const Book = connection.define("Books", {
     title: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
     },
     img: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
     },
     description: {
         type: Sequelize.TEXT,
-        allowNull: true
+        allowNull: true,
     },
     author: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
     },
     key: {
         type: Sequelize.STRING,
@@ -26,6 +26,10 @@ const Book = connection.define("Books", {
     permission: {
         type: Sequelize.STRING,
         allowNull: false,
+    },
+    bookFile: {
+        type: Sequelize.STRING,
+        allowNull: true,
     }
 
 

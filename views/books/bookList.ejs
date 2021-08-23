@@ -4,39 +4,38 @@
         <%- include('../../partials/navbar.ejs') %>
             <div class="container">
                 <hr>
-                <h2>Usúarios</h2>
-                <a class="btn btn-primary" href="/users/new">Criar novo usúario</a>
+                <h2>Livros</h2>
                 <hr>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nome</th>
-                            <th>Email</th>
+                            <th>Titúlo</th>
+                            <th>Autor</th>
                             <th>Permissão</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% users.forEach(user=> { %>
+                        <% books.forEach(book=> { %>
                             <tr>
                                 <th>
-                                    <%= user.id %>
+                                    <%= book.id %>
                                 </th>
                                 <th>
-                                    <%= user.name %>
+                                    <%= book.title %>
                                 </th>
                                 <th>
-                                    <%= user.email %>
+                                    <%= book.author %>
                                 </th>
                                 <th>
-                                    <%= user.permission %>
+                                    <%= book.permission %>
                                 </th>
                                 <th>
-                                    <a href="/users/edit/<%= user.id %>" class="btn btn-warning">Editar</a>
-                                    <form method="POST" action="/users/delete" style="display: inline;"
+                                    <a href="/books/edit/<%= book.id %>" class="btn btn-warning">Editar</a>
+                                    <form method="POST" action="/books/delete" style="display: inline;"
                                         onsubmit="confirmDelete(event, this)">
-                                        <input type="hidden" name="id" value="<%= user.id %>">
+                                        <input type="hidden" name="id" value="<%= book.id %>">
                                         <button class="btn btn-danger">Deletar</button>
                                     </form>
 
@@ -54,7 +53,7 @@
         <script>
             function confirmDelete(event, form) {
                 event.preventDefault();
-                var decision = confirm("Você quer deleter este usúario?");
+                var decision = confirm("Você quer deleter este livro?");
                 if (decision) {
                     form.submit();
                 } else {

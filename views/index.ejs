@@ -2,7 +2,6 @@
 
     <body style="min-width:372px;">
         <%- include('../partials/navbar.ejs') %>
-
             <main>
 
                 <div class="container">
@@ -35,8 +34,8 @@
                             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex align-items-stretch"
                                 style="padding-bottom: 15px;">
                                 <div class="card text-center bg-light">
-                                    <img src="https://lojasaraiva.vteximg.com.br/arquivos/ids/12710209-200-200/1010071147.jpg?v=637154380982930000"
-                                        alt="" class="card-img-top">
+                                    <img src="https://viverdeblog.com/wp-content/uploads/2017/04/como-escrever-um-livro-topo.png"
+                                        alt="bookCover" class="card-img-top">
                                     <div class="card-header">
                                         <h6 class="card-title">
                                             <%=book.title %>
@@ -53,11 +52,11 @@
                                         </small>
                                     </div>
                                     <div class="card-footer">
-                                        <form action="" class="d-block">
+                                        <a href="/books/<%=book.id%>">
                                             <button class="btn btn-primary">
                                                 Reservar
                                             </button>
-                                        </form>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

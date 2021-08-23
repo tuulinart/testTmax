@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.use(session({
     secret: "secret",
     //30000= 30 seg / 1000 = 1s seg.
-    cookie: { maxAge: 30000 }
+    cookie: { maxAge: 1800000 }
 
 }))
 
@@ -51,6 +51,16 @@ connection
     })
 
 
+//Locals
+app.use((req, res, next) => {
+    res.locals.myName = "Fábio"
+    next()
+})
+
+
+
+
+
 //Routes
 
 //Session
@@ -70,13 +80,12 @@ app.use("/", BooksController)
 app.use("/", ReservesController)
 
 //Users
-//Reserves
 app.use("/", UsersController)
 
 
 
 app.get("/", (req, res) => {
-    res.render("./users/login");
+    res.redirect("/login");
 })
 
 

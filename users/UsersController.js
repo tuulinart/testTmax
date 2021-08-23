@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("./User");
 const bcrypt = require("bcryptjs");
+const directorAuth = require("../middlewares/directorAuth");
 
 
-router.get("/users", (req, res) => {
+router.get("/users", directorAuth, (req, res) => {
     User.findAll().then(users => {
         res.render("./users/getUsers", { users: users })
     });
@@ -12,7 +13,16 @@ router.get("/users", (req, res) => {
 
 
 router.get("/login", (req, res) => {
-    res.render("./users/login")
+
+    if (req.session.user != undefined) {
+        res.redirect("/books")
+
+    } else {
+
+        res.render("./users/login")
+    }
+
+
 })
 
 
@@ -20,6 +30,8 @@ router.post("/authenticate", (req, res) => {
 
     var email = req.body.email;
     var password = req.body.password;
+    var permission = req.body.permission;
+    var name = req.body.name;
 
     User.findOne({ where: { email: email } }).then(user => {
         if (user != undefined) {
@@ -29,8 +41,10 @@ router.post("/authenticate", (req, res) => {
                 req.session.user = {
                     id: user.id,
                     email: user.email,
+                    permission: user.permission,
+                    name: user.name,
                 }
-                res.json(req.session.user);
+                res.redirect("/books")
             } else {
                 res.redirect("/login")
             }
@@ -41,6 +55,65 @@ router.post("/authenticate", (req, res) => {
         }
     })
 
+})
+
+router.get("/users/edit/:id", directorAuth, (req, res) => {
+    var id = req.params.id;
+
+    if (isNaN(id)) {
+        res.redirect("/users/userEdit")
+    }
+    User.findByPk(id).then(user => {
+        if (user != undefined) {
+            res.render("users/userEdit", { user: user });
+        } else {
+            res.redirect("/users");
+        }
+    })
+})
+
+router.post("/users/edit", (req, res) => {
+    var id = req.body.id;
+    User.update({
+        name: req.body.name,
+        email: req.body.email,
+        permission: req.body.permission,
+    }, {
+        where: {
+            id: id
+        }
+    }).then(() => {
+        res.redirect("/users")
+    })
+
+
+})
+
+
+router.post("/users/delete", (req, res) => {
+    var id = req.body.id;
+    if (id != undefined) {
+
+        if (req.session.user.id == id) {
+            res.redirect("/logout")
+        }
+
+        if (!isNaN(id)) {
+
+            User.destroy({
+                where: {
+                    id: id
+                }
+            }).then(() => {
+                res.redirect("/users")
+            })
+
+        } else {
+            res.redirect("/users")
+        }
+    } else {
+        res.redirect("/users")
+    }
 })
 
 
@@ -78,6 +151,25 @@ router.post("/users/create", (req, res) => {
         }
     })
 })
+
+router.get("/user/:id", (req, res) => {
+    var id = req.params.id;
+    User.findOne({
+        where: { id: id }
+    }).then(user => {
+        if (user != undefined) {
+            res.render("users/userPage");
+        } else {
+            res.redirect("/login");
+        }
+    })
+})
+
+router.get("/logout", (req, res) => {
+    req.session.user = undefined;
+    res.redirect("/login")
+})
+
 
 
 module.exports = router;

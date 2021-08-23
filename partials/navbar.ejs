@@ -18,12 +18,31 @@
 
             <div class="align-self-end">
                 <ul class="navbar-nav">
+
                     <li class="nav-item">
-                        <a href="./login" class="nav-link text-white">Entrar &nbsp </a>
+                        <% if(myName==undefined) { %>
+                            <a href="/login" class="nav-link text-white">
+                                Entrar &nbsp
+                            </a>
+                            <% } else {%>
+                                <a href="/user/1" class="nav-link text-white">
+                                    Olá, <%=myName %>
+                                </a>
+                                <% }%>
                     </li>
 
                     <li class="nav-item">
-                        <a href="/users" class="nav-link text-white"> &nbsp Usúarios cadastados </a>
+                        <a href="./reserves" class="nav-link text-white">Minhas reservas &nbsp </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="/users" class="nav-link text-white"> Usúarios cadastados </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="books/list" class="nav-link text-white">Edição e remoção de livros </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link text-white">Logout</a>
                     </li>
                 </ul>
             </div>

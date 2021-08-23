@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const Reserve = require("./Reserve")
+const auth = require("../middlewares/auht");
 
-
-router.get("/reserve", (req, res) => {
-    res.render("reserve/reserve")
+router.get("/reserves", auth, (req, res) => {
+    Reserve.findAll().then(reserves => {
+        res.render("reserves/myReserves", { reserves: reserves })
+    });
 })
 
 

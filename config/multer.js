@@ -9,7 +9,7 @@ module.exports = {
             cb(null, path.resolve(__dirname, "..", "src", "uploads"),)
         },
         filename: (req, file, cb) => {
-            crypto.randomBytes(16, (err, hash)=> {
+            crypto.randomBytes(16, (err, hash) => {
                 if (err) cb(err);
 
                 const fileName = `${hash.toString("hex")}-${file.originalname}`;
@@ -20,19 +20,20 @@ module.exports = {
         }
     }),
     limits: {
-        fileSize: 10 * 1024 *1024,
+        fileSize: 40 * 1024 * 1024,
     },
-    fileFilter: (req, file, cb) => {
-        const allowed = [
-            "image/jpeg" ,
-            "image/pjpeg",
-            "image/png",
-        ];
-
-        if(allowed.includes(file.mimetype)) {
-            cb(null, true);
-        } else {
-            cb(new Error("Tipo de arquivo não suportado."))
-        }
-    }
+    /*   fileFilter: (req, file, cb) => {
+           const allowed = [
+               "image/jpeg",
+               "image/pjpeg",
+               "image/png",
+               "document/pdf",
+           ];
+   
+           if (allowed.includes(file.mimetype)) {
+               cb(null, true);
+           } else {
+               cb(new Error("Tipo de arquivo não suportado."))
+           }
+       } */
 };

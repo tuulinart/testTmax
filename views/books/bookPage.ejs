@@ -1,0 +1,51 @@
+<%- include('../../partials/header.ejs') %>
+
+    <body style="min-width:372px;">
+        <%- include('../../partials/navbar.ejs') %>
+
+            <main>
+                <style>
+                    .flex-container {
+                        display: flex;
+                        flex-direction: row;
+                        flex-flow: column wrap;
+                        justify-content: center;
+                        align-items: center;
+                        padding-bottom: 30px;
+                        padding-left: 50px;
+                        padding-right: 50px;
+                    }
+                </style>
+                <div class="flex-container">
+                    <i>
+                        <h3>Livro <%=book.title %>
+                        </h3>
+                    </i>
+                </div>
+                <div class="flex-container">
+                    <img class="card-img-top"
+                        src="https://viverdeblog.com/wp-content/uploads/2017/04/como-escrever-um-livro-topo.png" alt=""
+                        style="height: 300px; width: 300px;">
+                    <div class="card-body">
+                        <i>
+                            <h5 class="card-title">
+                                <%=book.author%>
+                            </h5>
+                        </i>
+                        <p class="card-text">
+                            <%=book.description%>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="/books/<%=book.id%>">
+                            <button class="btn btn-primary btn-lg" type="button">Reservar</button>
+                        </a>
+                    </div>
+                </div>
+
+            </main>
+
+
+    </body>
+
+    <%- include('../../partials/footer.ejs') %>
