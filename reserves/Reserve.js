@@ -7,21 +7,21 @@ const User = require("../users/User");
 const Reserve = connection.define("reserves", {
     title: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
     },
-    author: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
-    description: {
-        type: Sequelize.TEXT,
-        allowNull: true
+    bookId: {
+        type: Sequelize.INTEGER,
+        references: {model: "books", key: "id"},
+    onDelete: "CASCADE",
+    OnUpdate: "CASCADE",
+    allowNull: false,
     }
-
+    
 })
 
 Book.hasMany(Reserve); //Um livro pode ter várias reservas.
-Reserve.belongsTo(Book); //Uma reserva contém somente um livro.
+
+
 User.hasMany(Reserve); // Um usúario pode ter diversas reservas.
 
 //Reserve.sync({ force: false });

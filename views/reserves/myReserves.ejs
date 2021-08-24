@@ -7,7 +7,9 @@
             <main>
 
                 <div class="container">
-                    <h4>Minhas reservas</h4>
+                    <hr>
+                    <h2>Minhas reservas</h2>
+                    <a class="btn btn-primary" href="/reserves/new">Nova reserva</a>
                     <hr class="mt=3">
                     <div class="row">
                         <% reserves.forEach(function(reserve) { %>
@@ -19,18 +21,14 @@
                                         alt="" class="card-img-top">
                                     <div class="card-header">
                                         <h6 class="card-title">
-                                            <%=reserve.title%>
+                                            <%=reserve.book.title%>
                                         </h6>
                                     </div>
                                     <div class="card-body">
                                         <i>
-                                            <%=reserve.author%>
+                                            <%=reserve.book.author%>
                                         </i>
                                         <br>
-                                        <br>
-                                        <small>
-                                            <%=reserve.description%>
-                                        </small>
                                     </div>
                                     <a href="/dowload">
                                         <button class="btn btn-primary btn-lg" type="button">Baixar</button>
@@ -44,6 +42,7 @@
                                         <input type="hidden" name="id" value="<%= reserve.id %>">
                                         <button class="btn btn-danger btn-lg" type="submit">Excluir</button>
                                     </form>
+                                    <br>
                                 </div>
                             </div>
                             <% }) %>
@@ -62,7 +61,7 @@
         <script>
             function confirmDelete(event, form) {
                 event.preventDefault();
-                var decision = confirm("Você quer deleter este livro?");
+                var decision = confirm("Você quer deleter esta reserva?");
                 if (decision) {
                     form.submit();
                 } else {

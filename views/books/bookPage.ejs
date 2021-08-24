@@ -36,18 +36,12 @@
                             <%=book.description%>
                         </p>
                     </div>
-                    <div class="card-footer">
                         <form action="/getReserve" method="POST">
                             <input type="hidden" name="bookId" value="<%=book.id%>">
-                            <input type="hidden" name="title" value="<%=book.title%>">
-                            <input type="hidden" name="author" value="<%=book.author%>">
-                            <input type="hidden" name="description" value="<%=book.description%>">
                             <input type="hidden" name="userId" value="<%=userId%>">
                             <button class="btn btn-primary btn-lg" type="submit">Reservar</button>
-
-
                         </form>
-                    </div>
+                    
                 </div>
 
             </main>

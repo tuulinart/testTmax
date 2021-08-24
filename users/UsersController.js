@@ -146,7 +146,7 @@ router.post("/users/create", (req, res) => {
             })
 
         } else {
-            res.redirect("/users/new");
+            res.send(`O email ${req.body.email} já está cadastro`);
         }
     })
 })

@@ -10,24 +10,25 @@ const http = require('http');
 router.get("/reserves", auth, (req, res) => {
 
     Reserve.findAll({
-        include: [{ model: Book }]
+    include: [{model: Book}]
     }).then(reserves => {
         res.render("reserves/myReserves", { reserves: reserves })
     });
 })
 
-router.post("/getReserve", (req, res) => {
-    var title = req.body.title;
+router.get("/reserves/new",auth, (req, res)  => {
+    res.render("reserves/newReserve")
+})
+
+
+
+router.post("/getReserve", auth, (req, res) => {
     var book = req.body.bookId;
-    var userId = req.body.userId;
     Reserve.findOne({ where: { bookId: book } }).then(reserve => {
         if (reserve == undefined) {
             Reserve.create({
-                title: title,
-                author: req.body.author,
-                description: req.body.description,
                 bookId: book,
-                userId: userId,
+                userId: req.body.userId,
             })
                 .then(() => {
                     res.redirect("/reserves");
@@ -62,9 +63,8 @@ router.get("/reserves/edit/:id", (req, res) => {
 router.post("/reserves/edit", (req, res) => {
     var id = req.body.id;
     Reserve.update({
-        title: req.body.title,
-        author: req.body.author,
-        description: req.body.description,
+        userId: req.body.userId,
+        bookId: req.body.bookId,
     }, {
         where: {
             id: id
