@@ -31,7 +31,7 @@ const Book = connection.define("books", {
 
 })
 
-//Book.sync({ force: false });
+Book.sync({ force: false });
 
 
 module.exports = Book;

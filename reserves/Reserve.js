@@ -9,21 +9,13 @@ const Reserve = connection.define("reserves", {
         type: Sequelize.STRING,
         allowNull: true,
     },
-    bookId: {
-        type: Sequelize.INTEGER,
-        references: {model: "books", key: "id"},
-    onDelete: "CASCADE",
-    OnUpdate: "CASCADE",
-    allowNull: false,
-    }
     
 })
 
 Book.hasMany(Reserve); //Um livro pode ter várias reservas.
-
-
+Reserve.belongsTo(Book); //Uma reserva contém um livro.
 User.hasMany(Reserve); // Um usúario pode ter diversas reservas.
 
-//Reserve.sync({ force: false });
+Reserve.sync({ force: false });
 
-module.exports = Reserve;
+module.exports = Reserve; 
