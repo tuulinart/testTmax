@@ -6,18 +6,21 @@ const Book = require("../books/Book");
 const User = require("../users/User");
 var fs = require('fs');
 const http = require('http');
+var path = require('path');
+var mime = require("mime")
 
 router.get("/reserves", auth, (req, res) => {
-
+    var name = req.session.user.name;
     Reserve.findAll({
-    include: [{model: Book}]
+        include: [{ model: Book }]
     }).then(reserves => {
-        res.render("reserves/myReserves", { reserves: reserves })
+        res.render("reserves/myReserves", { reserves: reserves, name })
     });
 })
 
-router.get("/reserves/new",auth, (req, res)  => {
-    res.render("reserves/newReserve")
+router.get("/reserves/new", auth, (req, res) => {
+    var name = req.session.user.name;
+    res.render("reserves/newReserve", { name })
 })
 
 
@@ -47,13 +50,13 @@ router.post("/getReserve", auth, (req, res) => {
 
 router.get("/reserves/edit/:id", (req, res) => {
     var id = req.params.id;
-
+    var name = req.session.user.name;
     if (isNaN(id)) {
         res.redirect("/reserves")
     }
     Reserve.findByPk(id).then(reserve => {
         if (reserve != undefined) {
-            res.render("reserves/reservesEdit", { reserve: reserve });
+            res.render("reserves/reservesEdit", { reserve: reserve, name });
         } else {
             res.redirect("/books");
         }
@@ -97,6 +100,25 @@ router.post("/reserves/delete", (req, res) => {
         res.redirect("/reserves")
     }
 })
+
+/* router.get("/reserve/dowload", (req, res) => {
+   var file = `${__dirname}/src/uploads/658b530bb8991275a21cef93ef9c5bff-1 - Manual Projeto PCI`;
+
+   var filename = path.basename(file);
+   var mimetype = mime.getType(file);
+
+   res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+   res.setHeader('Content-type', mimetype);
+
+   var readStream = fs.createReadStream(filename);
+   readStream.on('open', function () {
+       readStream.pipe(res);
+   });
+   readStream.on('error', function (err) {
+       res.end(err);
+   }); 
+ 
+})  */
 
 
 module.exports = router;

@@ -8,26 +8,28 @@ const directorAuth = require("../middlewares/directorAuth");
 
 
 router.get("/books", auth, (req, res) => {
+    var name = req.session.user.name;
     Book.findAll().then(books => {
-        res.render("index", { books: books })
+        res.render("index", { books: books, name })
     });
 })
 
 router.get("/books/list", directorAuth, (req, res) => {
+    var name = req.session.user.name;
     Book.findAll().then(books => {
-        res.render("books/bookList", { books: books })
+        res.render("books/bookList", { books: books, name })
     });
 })
 
 router.get("/books/edit/:id", directorAuth, (req, res) => {
     var id = req.params.id;
-
+    var name = req.session.user.name;
     if (isNaN(id)) {
         res.redirect("/books/list")
     }
     Book.findByPk(id).then(book => {
         if (book != undefined) {
-            res.render("books/bookEdit", { book: book });
+            res.render("books/bookEdit", { book: book, name });
         } else {
             res.redirect("/books");
         }
@@ -78,7 +80,8 @@ router.post("/books/delete", (req, res) => {
 
 
 router.get("/books/new", auth, (req, res) => {
-    res.render("books/newBook");
+    var name = req.session.user.name;
+    res.render("books/newBook", { name });
 })
 
 router.post("/upload", multer(multerConfig).single("bookFile"), (req, res) => {
@@ -102,6 +105,7 @@ router.post("/upload", multer(multerConfig).single("bookFile"), (req, res) => {
 })
 router.get("/books/:id", (req, res) => {
     var id = req.params.id;
+    var name = req.session.user.name;
     Book.findOne({
         where: { id: id }
     }).then(book => {
@@ -113,16 +117,16 @@ router.get("/books/:id", (req, res) => {
                 console.log(permissionUser)
                 console.log(permissionBook)
                 console.log(userId)
-                res.render("books/bookPage", { book: book, userId });
+                res.render("books/bookPage", { book: book, userId, name });
                 break;
             case "Professor":
                 if (permissionBook === "Estudante") {
-                    res.render("books/bookPage", { book: book, userId });
+                    res.render("books/bookPage", { book: book, userId, name });
                     console.log(permissionUser)
                     console.log(permissionBook)
                     console.log(userId)
                 } else if (permissionBook === "Professor") {
-                    res.render("books/bookPage", { book: book, userId });
+                    res.render("books/bookPage", { book: book, userId, name });
                     console.log(permissionUser)
                     console.log(permissionBook)
                     console.log(userId)
@@ -132,7 +136,7 @@ router.get("/books/:id", (req, res) => {
                 break;
             case "Estudante":
                 if (permissionBook === permissionUser) {
-                    res.render("books/bookPage", { book: book, userId });
+                    res.render("books/bookPage", { book: book, userId, name });
                 } else {
                     res.redirect("/books");
                 }

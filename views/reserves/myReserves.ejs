@@ -2,7 +2,7 @@
 
 
     <body style="min-width:372px;">
-        <%- include('../../partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs', {nameUser: name }); %>
 
             <main>
 
@@ -30,7 +30,7 @@
                                         </i>
                                         <br>
                                     </div>
-                                    <a href="/dowload">
+                                    <a href="/reserves">
                                         <button class="btn btn-primary btn-lg" type="button">Baixar</button>
                                     </a>
                                     <br>

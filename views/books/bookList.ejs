@@ -1,13 +1,13 @@
 <%- include('../../partials/header.ejs') %>
 
     <body>
-        <%- include('../../partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs', {nameUser: name }); %>
             <div class="container">
                 <hr>
                 <h2>Livros</h2>
                 <a class="btn btn-primary" href="/books/new">Novo livro</a>
                 <hr>
-                    <table class="table table-bordered">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Id</th>

@@ -1,7 +1,7 @@
 <%- include('../../partials/header.ejs') %>
 
     <body style="min-width:372px;">
-        <%- include('../../partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs', {nameUser: name }); %>
 
             <main>
                 <style>
@@ -36,12 +36,12 @@
                             <%=book.description%>
                         </p>
                     </div>
-                        <form action="/getReserve" method="POST">
-                            <input type="hidden" name="bookId" value="<%=book.id%>">
-                            <input type="hidden" name="userId" value="<%=userId%>">
-                            <button class="btn btn-primary btn-lg" type="submit">Reservar</button>
-                        </form>
-                    
+                    <form action="/getReserve" method="POST">
+                        <input type="hidden" name="bookId" value="<%=book.id%>">
+                        <input type="hidden" name="userId" value="<%=userId%>">
+                        <button class="btn btn-primary btn-lg" type="submit">Reservar</button>
+                    </form>
+
                 </div>
 
             </main>

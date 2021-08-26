@@ -53,9 +53,10 @@ connection
 
 //Locals
 app.use((req, res, next) => {
-    res.locals.myName = "Usúario";
+    res.locals.myName = "Usuário";
     next()
 })
+
 
 
 

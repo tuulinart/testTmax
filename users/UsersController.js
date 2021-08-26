@@ -1,13 +1,16 @@
 const express = require("express");
+const app = express;
 const router = express.Router();
 const User = require("./User");
 const bcrypt = require("bcryptjs");
 const directorAuth = require("../middlewares/directorAuth");
 
 
+
 router.get("/users", directorAuth, (req, res) => {
+    var name = req.session.user.name;
     User.findAll().then(users => {
-        res.render("./users/getUsers", { users: users })
+        res.render("./users/getUsers", { users: users, name })
     });
 })
 
@@ -58,13 +61,13 @@ router.post("/authenticate", (req, res) => {
 
 router.get("/users/edit/:id", directorAuth, (req, res) => {
     var id = req.params.id;
-
+    var name = req.session.user.name;
     if (isNaN(id)) {
         res.redirect("/users/userEdit")
     }
     User.findByPk(id).then(user => {
         if (user != undefined) {
-            res.render("users/userEdit", { user: user });
+            res.render("users/userEdit", { user: user, name });
         } else {
             res.redirect("/users");
         }
@@ -140,7 +143,7 @@ router.post("/users/create", (req, res) => {
                 password: hash,
                 permission: permission
             }).then(() => {
-                res.redirect("/books");
+                res.redirect("/users");
             }).catch((err) => {
                 res.send(err);
             })
@@ -151,13 +154,14 @@ router.post("/users/create", (req, res) => {
     })
 })
 
-router.get("/user/:id", (req, res) => {
-    var id = req.params.id;
+router.get("/user/edit", (req, res) => {
+    var id = req.session.user.id;
+    var name = req.session.user.name;
     User.findOne({
         where: { id: id }
     }).then(user => {
         if (user != undefined) {
-            res.render("users/userPage", { user: user });
+            res.render("users/userPage", { user: user, name });
         } else {
             res.redirect("/login");
         }

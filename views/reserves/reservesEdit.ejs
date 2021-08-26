@@ -1,7 +1,7 @@
 <%- include('../../partials/header.ejs') %>
 
     <body>
-        <%- include('../../partials/navbar.ejs') %>
+        <%- include('../../partials/navbar.ejs', {nameUser: name }); %>
             <div class="container">
                 <div class="card">
                     <div class="card-header">
@@ -14,12 +14,12 @@
 
                             <input type="hidden" name="id" value="<%=reserve.id %>">
 
-                            <input class="form-control" type="number" name="userId"
-                                placeholder="Insira o ID do usuário" value="<%=reserve.userId%>">
+                            <input class="form-control" type="number" name="userId" placeholder="Insira o ID do usuário"
+                                value="<%=reserve.userId%>">
                             <br>
-                            <input class="form-control" type="number" name="bookId"
-                                placeholder="Insira o ID do livro" value="<%=reserve.bookId%>">
-                            <br>    
+                            <input class="form-control" type="number" name="bookId" placeholder="Insira o ID do livro"
+                                value="<%=reserve.bookId%>">
+                            <br>
                             <button class="btn btn-primary" type="submit">Atualizar</button>
                         </form>
                     </div>
